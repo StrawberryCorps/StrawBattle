@@ -1,6 +1,7 @@
 package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +22,15 @@ public class PlayerQuit implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        event.setQuitMessage(null);
         StrawBattle.STRAW_BATTLE.getStrawPlayers().remove(StrawBattle.STRAW_BATTLE.getStrawPlayer(event.getPlayer().getUniqueId()));
+        if (!StrawBattle.STRAW_BATTLE.running) {
+            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a quitté la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
+            if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() - 1 <= StrawBattle.STRAW_BATTLE.getMinPlayers()) {
+                if (StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
+                    StrawBattle.STRAW_BATTLE.getLaunchingTask().stop();
+            }
+        }
     }
 }

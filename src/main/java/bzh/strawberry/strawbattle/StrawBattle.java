@@ -27,6 +27,10 @@ public class StrawBattle extends JavaPlugin {
 
     public static StrawBattle STRAW_BATTLE;
 
+    private int minPlayers;
+    public boolean running;
+    private String prefix;
+
     private Collection<StrawPlayer> strawPlayers;
     private LaunchingTask launchingTask;
 
@@ -34,7 +38,8 @@ public class StrawBattle extends JavaPlugin {
     public void onEnable() {
         STRAW_BATTLE = this;
         long begin = System.currentTimeMillis();
-        this.getLogger().info("######################## [" + this.getDescription().getName() + " - " + this.getDescription().getVersion() + "] #################################");
+        this.getLogger().info("######################## [" + this.getDescription().getName() + " - " + this.getDescription().getVersion() + " | Author(s) : " + this.getDescription().getAuthors().toString() + "] #################################");
+        this.saveDefaultConfig();
 
         this.getLogger().info("Starting to load the commands...");
         Objects.requireNonNull(this.getCommand("github")).setExecutor(new GithubCommand());
@@ -58,9 +63,13 @@ public class StrawBattle extends JavaPlugin {
 
         this.launchingTask = new LaunchingTask(this);
 
+        this.minPlayers = this.getConfig().getInt("min-players");
+        this.prefix = this.getConfig().getString("game-prefix");
+        this.running = false;
+
         this.strawPlayers = new ArrayList<>();
         this.getLogger().info("Plugin enabled in "+(System.currentTimeMillis() - begin)+" ms.");
-        this.getLogger().info("######################## [" + this.getDescription().getName() + " - " + this.getDescription().getVersion() + "] #################################");
+        this.getLogger().info("######################## [" + this.getDescription().getName() + " - " + this.getDescription().getVersion() + " | Author(s) : " + this.getDescription().getAuthors().toString() + "] #################################");
     }
 
     @Override
@@ -91,5 +100,21 @@ public class StrawBattle extends JavaPlugin {
      */
     public LaunchingTask getLaunchingTask() {
         return launchingTask;
+    }
+
+    /**
+     * Le nombre minimum de joueur pour lancer la partie de façon automatique
+     * @return un entier du nombre de joueur requis
+     */
+    public int getMinPlayers() {
+        return minPlayers;
+    }
+
+    /**
+     * Le prefix qui doit être mis avant les messages d'informations
+     * @return la chaine du prefix
+     */
+    public String getPrefix() {
+        return prefix;
     }
 }
