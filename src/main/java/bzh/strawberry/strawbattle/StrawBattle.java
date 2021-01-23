@@ -2,6 +2,10 @@ package bzh.strawberry.strawbattle;
 
 import bzh.strawberry.strawbattle.commands.ForcestartCommand;
 import bzh.strawberry.strawbattle.commands.GithubCommand;
+import bzh.strawberry.strawbattle.listeners.block.BlockBreak;
+import bzh.strawberry.strawbattle.listeners.block.BlockPlace;
+import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
+import bzh.strawberry.strawbattle.listeners.player.*;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,7 +38,14 @@ public class StrawBattle extends JavaPlugin {
         this.getLogger().info("Starting to load the commands... -> DONE");
 
         this.getLogger().info("Starting loading listeners...");
-
+        this.getServer().getPluginManager().registerEvents(new BlockBreak(), this);
+        this.getServer().getPluginManager().registerEvents(new BlockPlace(), this);
+        this.getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
+        this.getServer().getPluginManager().registerEvents(new FoodChangeLevel(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerDropItem(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerSwapHandItems(), this);
         this.getLogger().info("Starting loading listeners... -> DONE");
 
         this.strawPlayers = new ArrayList<>();

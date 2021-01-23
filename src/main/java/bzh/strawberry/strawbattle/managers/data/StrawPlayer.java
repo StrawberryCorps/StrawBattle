@@ -12,6 +12,8 @@ public class StrawPlayer {
 
     private final Player player;
 
+    private boolean eliminate;
+
     /**
      * Création d'une structure pour gérer les joueurs sur la partie de jeu
      * @param player le joueur
@@ -26,5 +28,20 @@ public class StrawPlayer {
      */
     public Player getPlayer() {
         return player;
+    }
+
+    /**
+     * Cette méthode permet d'éliminer un joueur du classement
+     */
+    public void eliminate() {
+        this.eliminate = true;
+    }
+
+    /**
+     * Pour savoir si un joueur est éliminé
+     * @return true si le joueur est éliminé
+     */
+    public boolean isEliminate() {
+        return eliminate;
     }
 }
