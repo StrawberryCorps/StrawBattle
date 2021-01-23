@@ -6,7 +6,10 @@ import bzh.strawberry.strawbattle.listeners.block.BlockBreak;
 import bzh.strawberry.strawbattle.listeners.block.BlockPlace;
 import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
 import bzh.strawberry.strawbattle.listeners.player.*;
+import bzh.strawberry.strawbattle.listeners.world.WeatherChange;
+import bzh.strawberry.strawbattle.listeners.world.WorldLoad;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
+import bzh.strawberry.strawbattle.tasks.LaunchingTask;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class StrawBattle extends JavaPlugin {
     public static StrawBattle STRAW_BATTLE;
 
     private Collection<StrawPlayer> strawPlayers;
+    private LaunchingTask launchingTask;
 
     @Override
     public void onEnable() {
@@ -46,7 +50,13 @@ public class StrawBattle extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerSwapHandItems(), this);
+        this.getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerGameModeChange(), this);
+        this.getServer().getPluginManager().registerEvents(new WorldLoad(), this);
+        this.getServer().getPluginManager().registerEvents(new WeatherChange(), this);
         this.getLogger().info("Starting loading listeners... -> DONE");
+
+        this.launchingTask = new LaunchingTask(this);
 
         this.strawPlayers = new ArrayList<>();
         this.getLogger().info("Plugin enabled in "+(System.currentTimeMillis() - begin)+" ms.");
@@ -73,5 +83,13 @@ public class StrawBattle extends JavaPlugin {
      */
     public StrawPlayer getStrawPlayer(UUID uuid) {
         return this.strawPlayers.stream().filter(strawPlayer -> strawPlayer.getPlayer().getUniqueId().equals(uuid)).findFirst().orElse(null);
+    }
+
+    /**
+     * Permet de lancer la tache de lancement de la partie
+     * @return l'instance de la task
+     */
+    public LaunchingTask getLaunchingTask() {
+        return launchingTask;
     }
 }
