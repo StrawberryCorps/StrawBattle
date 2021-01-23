@@ -1,0 +1,18 @@
+name: StrawBattle
+version: 0.0.1
+description: Mini-jeu de combat avec des boules (enflammée)
+author: Eclixal
+main: bzh.strawberry.strawbattle.StrawBattle
+commands:
+  forcestart:
+    description: Pour forcer le lancement du jeu
+    usage: /forcestart
+    aliases:
+      - fs
+      - force
+  github:
+    description: Pour avoir toutes les infos de la StrawBerryCorp
+    usage: /github
+    aliases:
+      - git
+      - source
