@@ -4,6 +4,7 @@ import bzh.strawberry.strawbattle.StrawBattle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /*
  * This file ForcestartCommand is part of a project StrawBattle.StrawBattle.
@@ -19,6 +20,11 @@ public class ForcestartCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String... strings) {
+        if (!(commandSender instanceof Player)) return false;
+        Player player = (Player) commandSender;
+        if (!player.isOp()) return false;
+        if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
+            StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
         return true;
     }
 }
