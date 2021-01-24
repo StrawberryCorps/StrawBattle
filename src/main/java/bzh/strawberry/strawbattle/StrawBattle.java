@@ -8,14 +8,18 @@ import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
 import bzh.strawberry.strawbattle.listeners.player.*;
 import bzh.strawberry.strawbattle.listeners.world.WeatherChange;
 import bzh.strawberry.strawbattle.listeners.world.WorldLoad;
+import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.tasks.LaunchingTask;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+
+import static bzh.strawberry.strawbattle.utils.Cuboid.load;
 
 /*
  * This file StrawBattle is part of a project StrawBattle.StrawBattle.
@@ -28,10 +32,11 @@ public class StrawBattle extends JavaPlugin {
     public static StrawBattle STRAW_BATTLE;
 
     private int minPlayers;
-    public boolean running;
+    public boolean running, finish;
     private String prefix;
 
     private Collection<StrawPlayer> strawPlayers;
+    private List<StrawMap> strawMaps;
     private LaunchingTask launchingTask;
 
     @Override
@@ -66,6 +71,17 @@ public class StrawBattle extends JavaPlugin {
         this.minPlayers = this.getConfig().getInt("min-players");
         this.prefix = this.getConfig().getString("game-prefix");
         this.running = false;
+        this.finish = false;
+
+        this.getLogger().info("Starting loading maps...");
+        this.strawMaps = new ArrayList<>();
+        for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
+            StrawMap strawMap = new StrawMap(name);
+            strawMap.setItem(new ItemStack(Material.valueOf(getConfig().getString("maps." + name + ".material"))));
+            strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("map." + name + ".cuboid"))));
+            strawMaps.add(strawMap);
+        }
+        this.getLogger().info("Starting loading maps... -> DONE");
 
         this.strawPlayers = new ArrayList<>();
         this.getLogger().info("Plugin enabled in "+(System.currentTimeMillis() - begin)+" ms.");
@@ -75,6 +91,15 @@ public class StrawBattle extends JavaPlugin {
     @Override
     public void onDisable() {
 
+    }
+
+    /**
+     * Permet de charger la map de jeu avant le lancement de la partie et de calculer les points de spawn
+     * @param strawMap qui a été séléctionné
+     */
+    public void loadMap(StrawMap strawMap) {
+        String name = strawMap.getName();
+        strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("map." + name + ".cuboid"))));
     }
 
     /**
@@ -92,6 +117,10 @@ public class StrawBattle extends JavaPlugin {
      */
     public StrawPlayer getStrawPlayer(UUID uuid) {
         return this.strawPlayers.stream().filter(strawPlayer -> strawPlayer.getPlayer().getUniqueId().equals(uuid)).findFirst().orElse(null);
+    }
+
+    public StrawMap getStrawMap() {
+        return this.strawMaps.get((int) (Math.random() * this.strawMaps.size()));
     }
 
     /**

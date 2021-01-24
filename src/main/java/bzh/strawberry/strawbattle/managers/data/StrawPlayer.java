@@ -1,5 +1,6 @@
 package bzh.strawberry.strawbattle.managers.data;
 
+import bzh.strawberry.strawbattle.managers.StrawMap;
 import org.bukkit.entity.Player;
 
 /*
@@ -13,6 +14,7 @@ public class StrawPlayer {
     private final Player player;
 
     private boolean eliminate;
+    private StrawMap strawMapVoted;
 
     /**
      * Création d'une structure pour gérer les joueurs sur la partie de jeu

@@ -1,8 +1,16 @@
 package bzh.strawberry.strawbattle.tasks;
 
 import bzh.strawberry.strawbattle.StrawBattle;
+import bzh.strawberry.strawbattle.managers.StrawMap;
+import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
+import bzh.strawberry.strawbattle.utils.ItemStackBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.WorldCreator;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /*
@@ -26,12 +34,35 @@ public class LaunchingTask extends BukkitRunnable {
     @Override
     public void run() {
         this.start = true;
-        if (cooldown == 0) {
-            this.cancel();
-            // START
-            this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().getInventory().clear());
 
-            // LANCEMENT
+        if (this.cooldown == 5) {
+            StrawMap strawMap = this.strawBattle.getStrawMap();
+            Bukkit.createWorld(new WorldCreator(strawMap.getName()));
+            for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
+                strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3La carte §b" + strawMap.getName() + " §3sera la carte pour cette partie.");
+            }
+            this.strawBattle.loadMap(strawMap);
+        }
+
+        if (this.cooldown == 0) {
+            this.cancel();
+            this.strawBattle.running = true;
+            this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().getInventory().clear());
+            for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
+                if (!strawPlayer.isEliminate()) {
+                    strawPlayer.getPlayer().setGameMode(GameMode.SURVIVAL);
+                    strawPlayer.getPlayer().getInventory().clear();
+                    strawPlayer.getPlayer().getInventory().setArmorContents(null);
+                    strawPlayer.getPlayer().setHealth(strawPlayer.getPlayer().getMaxHealth());
+                    strawPlayer.getPlayer().setFoodLevel(20);
+                    strawPlayer.getPlayer().setLevel(0);
+                    strawPlayer.getPlayer().setExp(0);
+                    strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIRE_CHARGE, 1, "§3StrawBall §9(Clic-droit)"));
+                    strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
+
+                    // téléportation sur la map
+                }
+            }
         }
 
         this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().setLevel(cooldown));
@@ -40,6 +71,7 @@ public class LaunchingTask extends BukkitRunnable {
 
 
     public void stop() {
+        if (this.cooldown <= 5) return;
         this.start = false;
         cancel();
         this.cooldown = 15;

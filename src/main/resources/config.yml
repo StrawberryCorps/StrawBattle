@@ -1,2 +1,6 @@
 min-players: 6
 game-prefix: "§9[§3StrawBattle§9]§r "
+maps:
+  raimbow:
+    material: DIRT
+    cuboid: 0,0,0:255,255,255
