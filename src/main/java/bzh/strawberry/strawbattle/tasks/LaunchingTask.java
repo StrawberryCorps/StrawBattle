@@ -37,7 +37,7 @@ public class LaunchingTask extends BukkitRunnable {
 
         if (this.cooldown == 5) {
             StrawMap strawMap = this.strawBattle.getStrawMap();
-            Bukkit.createWorld(new WorldCreator(strawMap.getName()));
+            this.strawBattle.getServer().getScheduler().runTaskAsynchronously(this.strawBattle, () -> Bukkit.createWorld(new WorldCreator(strawMap.getName())));
             for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                 strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3La carte §b" + strawMap.getName() + " §3sera la carte pour cette partie.");
             }
@@ -61,6 +61,7 @@ public class LaunchingTask extends BukkitRunnable {
                     strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
 
                     // téléportation sur la map
+
                 }
             }
         }

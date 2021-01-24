@@ -78,7 +78,7 @@ public class StrawBattle extends JavaPlugin {
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
             StrawMap strawMap = new StrawMap(name);
             strawMap.setItem(new ItemStack(Material.valueOf(getConfig().getString("maps." + name + ".material"))));
-            strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("map." + name + ".cuboid"))));
+            strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("maps." + name + ".cuboid"))));
             strawMaps.add(strawMap);
         }
         this.getLogger().info("Starting loading maps... -> DONE");
@@ -99,7 +99,7 @@ public class StrawBattle extends JavaPlugin {
      */
     public void loadMap(StrawMap strawMap) {
         String name = strawMap.getName();
-        strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("map." + name + ".cuboid"))));
+        strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("maps." + name + ".cuboid"))));
     }
 
     /**
