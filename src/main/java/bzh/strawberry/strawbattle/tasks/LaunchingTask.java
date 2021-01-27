@@ -37,7 +37,7 @@ public class LaunchingTask extends BukkitRunnable {
 
         if (this.cooldown == 5) {
             StrawMap strawMap = this.strawBattle.getStrawMap();
-            this.strawBattle.getServer().getScheduler().runTaskAsynchronously(this.strawBattle, () -> Bukkit.createWorld(new WorldCreator(strawMap.getName())));
+            this.strawBattle.getServer().getScheduler().runTask(this.strawBattle, () -> new WorldCreator(strawMap.getName()).createWorld());
             for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                 strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3La carte §b" + strawMap.getName() + " §3sera la carte pour cette partie.");
             }

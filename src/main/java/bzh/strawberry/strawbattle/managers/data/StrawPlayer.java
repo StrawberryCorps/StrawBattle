@@ -14,6 +14,7 @@ public class StrawPlayer {
     private final Player player;
 
     private boolean eliminate;
+    private Player lastDamager;
     private StrawMap strawMapVoted;
 
     /**
@@ -45,5 +46,21 @@ public class StrawPlayer {
      */
     public boolean isEliminate() {
         return eliminate;
+    }
+
+    /**
+     * Connaitre le joueur qui a mis des dégats en dernier
+     * @return le dernier joueur qui a mis des dégats sur le joueur
+     */
+    public Player getLastDamager() {
+        return lastDamager;
+    }
+
+    /**
+     * Permet de mettre a jour le dernier jour qui a mis des dégats
+     * @param lastDamager
+     */
+    public void setLastDamager(Player lastDamager) {
+        this.lastDamager = lastDamager;
     }
 }

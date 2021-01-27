@@ -32,7 +32,7 @@ public class PlayerJoin implements Listener {
         event.setJoinMessage(null);
         StrawBattle.STRAW_BATTLE.getStrawPlayers().add(new StrawPlayer(event.getPlayer()));
         if (!StrawBattle.STRAW_BATTLE.running && StrawBattle.STRAW_BATTLE.getStrawPlayers().size() >= StrawBattle.STRAW_BATTLE.getMinPlayers()) {
-            if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted()) StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0L, 20L);
+            if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted()) StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimerAsynchronously(StrawBattle.STRAW_BATTLE, 0L, 20L);
         }
 
         if (!StrawBattle.STRAW_BATTLE.running) {
