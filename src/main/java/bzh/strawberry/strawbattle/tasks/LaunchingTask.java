@@ -4,14 +4,15 @@ import bzh.strawberry.strawbattle.StrawBattle;
 import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.utils.ItemStackBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 /*
  * This file LaunchingTask is part of a project StrawBattle.StrawBattle.
@@ -37,7 +38,12 @@ public class LaunchingTask extends BukkitRunnable {
 
         if (this.cooldown == 5) {
             StrawMap strawMap = this.strawBattle.getStrawMap();
-            this.strawBattle.getServer().getScheduler().runTask(this.strawBattle, () -> new WorldCreator(strawMap.getName()).createWorld());
+
+            World world = Bukkit.createWorld(new WorldCreator(strawMap.getName()));
+            world.setAutoSave(false);
+            world.setKeepSpawnInMemory(false);
+            strawMap.calculateSpawn();
+
             for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                 strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3La carte §b" + strawMap.getName() + " §3sera la carte pour cette partie.");
             }
@@ -45,9 +51,9 @@ public class LaunchingTask extends BukkitRunnable {
         }
 
         if (this.cooldown == 0) {
-            this.cancel();
             this.strawBattle.running = true;
             this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().getInventory().clear());
+            int pos = 0;
             for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                 if (!strawPlayer.isEliminate()) {
                     strawPlayer.getPlayer().setGameMode(GameMode.SURVIVAL);
@@ -61,12 +67,30 @@ public class LaunchingTask extends BukkitRunnable {
                     strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
 
                     // téléportation sur la map
-
+                    Location location = strawBattle.getStrawMap().getLocations().get(pos);
+                    strawPlayer.getPlayer().teleport(location);
+                    ArmorStand armorStand = this.strawBattle.getStrawMap().getWorld().spawn(location, ArmorStand.class);
+                    armorStand.setGravity(false);
+                    armorStand.addPassenger(strawPlayer.getPlayer());
+                    if (pos >= strawBattle.getStrawMap().getLocations().size())
+                        pos = 0;
+                    else pos++;
                 }
             }
         }
 
-        this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().setLevel(cooldown));
+        if (this.cooldown < 0 && this.cooldown >= -10) {
+            for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
+                strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3Lancement de la partie dans §9" + (11 + this.cooldown) + " §3seconde" + ((11 + this.cooldown) > 1 ? "s" : ""));
+            }
+            if (cooldown == -10) {
+                this.cancel();
+                this.strawBattle.getStrawPlayers().forEach(strawPlayer -> Objects.requireNonNull(strawPlayer.getPlayer().getVehicle()).remove());
+            }
+        }
+
+        if (this.cooldown > 0)
+            this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().setLevel(cooldown));
         cooldown--;
     }
 

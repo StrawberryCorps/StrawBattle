@@ -8,6 +8,7 @@ import bzh.strawberry.strawbattle.listeners.entity.EntityDamage;
 import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
 import bzh.strawberry.strawbattle.listeners.player.*;
 import bzh.strawberry.strawbattle.listeners.world.WeatherChange;
+import bzh.strawberry.strawbattle.listeners.world.WorldInit;
 import bzh.strawberry.strawbattle.listeners.world.WorldLoad;
 import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
@@ -37,6 +38,7 @@ public class StrawBattle extends JavaPlugin {
     private Collection<StrawPlayer> strawPlayers;
     private List<StrawMap> strawMaps;
     private LaunchingTask launchingTask;
+    private StrawMap strawMap;
 
     @Override
     public void onEnable() {
@@ -64,6 +66,7 @@ public class StrawBattle extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerGameModeChange(), this);
         this.getServer().getPluginManager().registerEvents(new WorldLoad(), this);
+        this.getServer().getPluginManager().registerEvents(new WorldInit(), this);
         this.getServer().getPluginManager().registerEvents(new WeatherChange(), this);
         this.getLogger().info("Starting loading listeners... -> DONE");
 
@@ -79,7 +82,6 @@ public class StrawBattle extends JavaPlugin {
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
             StrawMap strawMap = new StrawMap(name);
             strawMap.setItem(new ItemStack(Material.valueOf(getConfig().getString("maps." + name + ".material"))));
-            strawMap.setCuboid(load(strawMap.getWorld(), Objects.requireNonNull(getConfig().getString("maps." + name + ".cuboid"))));
             strawMaps.add(strawMap);
         }
         this.getLogger().info("Starting loading maps... -> DONE");
@@ -91,7 +93,8 @@ public class StrawBattle extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        if (this.strawMap != null)
+            this.getServer().unloadWorld(this.strawMap.getWorld(), false);
     }
 
     /**
@@ -121,7 +124,9 @@ public class StrawBattle extends JavaPlugin {
     }
 
     public StrawMap getStrawMap() {
-        return this.strawMaps.get((int) (Math.random() * this.strawMaps.size()));
+        if (this.strawMap == null)
+            this.strawMap = this.strawMaps.get((int) (Math.random() * this.strawMaps.size()));
+        return this.strawMap;
     }
 
     /**

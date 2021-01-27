@@ -3,6 +3,9 @@ package bzh.strawberry.strawbattle.utils;
 import bzh.strawberry.strawbattle.StrawBattle;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+
+import java.util.ArrayList;
 
 /*
  * This file Cuboid is part of a project StrawBattle.StrawBattle.
@@ -48,7 +51,6 @@ public class Cuboid {
     }
 
     public Location computeCenter(Location p1, Location p2) throws Exception {
-
         if(p1.getWorld() != p2.getWorld()) {
             throw new Exception("The Locations aren't in the same world.");
         }
@@ -86,6 +88,20 @@ public class Cuboid {
     public boolean equals(Cuboid other){
         return this.world.equals(other.world) && ((this.pos1.equals(other.pos1) && this.pos2.equals(other.pos2)) || (this.pos1.equals(other.pos2) && this.pos2.equals(other.pos1)));
     }
+
+    public ArrayList<Block> blockList() {
+        final ArrayList<Block> bL = new ArrayList<>();
+        for (int x = this.xMin; x <= this.xMax; ++x) {
+            for (int y = this.yMin; y <= this.yMax; ++y) {
+                for (int z = this.zMin; z <= this.zMax; ++z) {
+                    final Block b = this.world.getBlockAt(x, y, z);
+                    bL.add(b);
+                }
+            }
+        }
+        return bL;
+    }
+
 
     public String toString(){
         return "Cuboid, pos1 : " + pos1.toString() + " , pos2 : " + pos2.toString();

@@ -27,5 +27,6 @@ public class WorldLoad implements Listener {
         event.getWorld().setGameRule(GameRule.DO_WEATHER_CYCLE, false);
         event.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         event.getWorld().setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        event.getWorld().setAutoSave(false);
     }
 }

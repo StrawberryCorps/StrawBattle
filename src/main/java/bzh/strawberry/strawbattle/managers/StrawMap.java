@@ -1,13 +1,20 @@
 package bzh.strawberry.strawbattle.managers;
 
+import bzh.strawberry.strawbattle.StrawBattle;
+import bzh.strawberry.strawbattle.exception.StrawBattleException;
 import bzh.strawberry.strawbattle.utils.Cuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static bzh.strawberry.strawbattle.utils.Cuboid.load;
 
 /*
  * This file StrawMap is part of a project StrawBattle.StrawBattle.
@@ -42,5 +49,15 @@ public class StrawMap {
 
     public List<Location> getLocations() {
         return locations;
+    }
+
+    public void calculateSpawn() {
+        this.setCuboid(load(this.getWorld(), Objects.requireNonNull(StrawBattle.STRAW_BATTLE.getConfig().getString("maps." + name + ".cuboid"))));
+        for (Block block : this.getCuboid().blockList()) {
+            if (block != null && block.getType().equals(Material.BEDROCK))
+                this.locations.add(block.getLocation().add(0.5,2,0.5));
+        }
+        if (this.locations.isEmpty())
+            throw new StrawBattleException("Aucune position de spawn est défini sur la carte de jeu ! Merci de vérifier la présence de Bedrock");
     }
 }

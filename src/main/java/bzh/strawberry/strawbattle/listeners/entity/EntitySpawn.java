@@ -20,7 +20,7 @@ public class EntitySpawn implements Listener {
 
     @EventHandler
     public void onEntitySpawn(EntitySpawnEvent event) {
-        if (event.getEntityType() != EntityType.FIREBALL) event.setCancelled(true);
+        if (event.getEntityType() != EntityType.FIREBALL && event.getEntityType() != EntityType.ARMOR_STAND) event.setCancelled(true);
     }
 
 }

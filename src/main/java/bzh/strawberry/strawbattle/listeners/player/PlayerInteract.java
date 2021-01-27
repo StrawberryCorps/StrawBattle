@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class PlayerInteract implements Listener {
 
-    private List<Player> reloadStrawball = new ArrayList<>();
-
     public PlayerInteract() {
         StrawBattle.STRAW_BATTLE.getLogger().info("[LISTENER] Registered Listener : " + getClass().getName());
     }
@@ -36,7 +34,7 @@ public class PlayerInteract implements Listener {
 
             if (event.getItem().getType().equals(Material.FIRE_CHARGE)) {
                 event.setCancelled(true);
-                if (reloadStrawball.contains(player))
+                if (player.hasCooldown(Material.FIRE_CHARGE))
                     return;
 
                 Fireball fireball = player.launchProjectile(Fireball.class);
@@ -46,8 +44,7 @@ public class PlayerInteract implements Listener {
                 fireball.setIsIncendiary(false);
                 fireball.setYield(4);
 
-                reloadStrawball.add(player);
-                StrawBattle.STRAW_BATTLE.getServer().getScheduler().runTaskLaterAsynchronously(StrawBattle.STRAW_BATTLE, () -> reloadStrawball.remove(player), 40);
+                player.setCooldown(Material.FIRE_CHARGE, 40);
             }
         }
     }

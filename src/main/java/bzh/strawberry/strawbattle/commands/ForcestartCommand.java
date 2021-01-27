@@ -22,7 +22,7 @@ public class ForcestartCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String... strings) {
         if (!(commandSender instanceof Player)) return false;
         Player player = (Player) commandSender;
-        if (!player.isOp()) return false;
+        if (!player.hasPermission("strawbattle.forcestart")) return false;
         if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
             StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
         return true;

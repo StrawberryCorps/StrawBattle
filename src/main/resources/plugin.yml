@@ -8,6 +8,8 @@ commands:
   forcestart:
     description: Pour forcer le lancement du jeu
     usage: /forcestart
+    permission: strawbattle.forcestart
+    permission-message: Vous n'êtes pas autorisé a effectuer cette commande !
     aliases:
       - fs
       - force
