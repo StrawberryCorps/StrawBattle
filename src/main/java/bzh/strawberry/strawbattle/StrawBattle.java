@@ -2,6 +2,7 @@ package bzh.strawberry.strawbattle;
 
 import bzh.strawberry.strawbattle.commands.ForcestartCommand;
 import bzh.strawberry.strawbattle.commands.GithubCommand;
+import bzh.strawberry.strawbattle.exception.StrawBattleException;
 import bzh.strawberry.strawbattle.listeners.block.BlockBreak;
 import bzh.strawberry.strawbattle.listeners.block.BlockPlace;
 import bzh.strawberry.strawbattle.listeners.entity.EntityDamage;
@@ -19,9 +20,12 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.*;
 
 import static bzh.strawberry.strawbattle.utils.Cuboid.load;
+import static bzh.strawberry.strawbattle.utils.WorldUtil.copyWorld;
+import static bzh.strawberry.strawbattle.utils.WorldUtil.deleteWorldFolder;
 
 /*
  * This file StrawBattle is part of a project StrawBattle.StrawBattle.
@@ -42,6 +46,17 @@ public class StrawBattle extends JavaPlugin {
     private LaunchingTask launchingTask;
     private StrawMap strawMap;
     private Location spawnLocation;
+
+    @Override
+    public void onLoad() {
+        for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
+            if (deleteWorldFolder(new File(getServer().getWorldContainer(), name))) {
+                copyWorld(new File(getDataFolder(), name), new File(getServer().getWorldContainer(), name));
+            } else {
+                throw new StrawBattleException("Suppression de la map : " + name + " impossible !");
+            }
+        }
+    }
 
     @Override
     public void onEnable() {
