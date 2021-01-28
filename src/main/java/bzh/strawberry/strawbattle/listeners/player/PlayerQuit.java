@@ -53,6 +53,8 @@ public class PlayerQuit implements Listener {
                     strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
                 }
             }
+            if (!StrawBattle.STRAW_BATTLE.getEndingTask().isStarted())
+                StrawBattle.STRAW_BATTLE.getEndingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
         }
     }
 }

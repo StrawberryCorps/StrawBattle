@@ -14,6 +14,7 @@ import bzh.strawberry.strawbattle.listeners.world.WorldInit;
 import bzh.strawberry.strawbattle.listeners.world.WorldLoad;
 import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
+import bzh.strawberry.strawbattle.tasks.EndingTask;
 import bzh.strawberry.strawbattle.tasks.LaunchingTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -44,6 +45,7 @@ public class StrawBattle extends JavaPlugin {
     private Collection<StrawPlayer> strawPlayers;
     private List<StrawMap> strawMaps;
     private LaunchingTask launchingTask;
+    private EndingTask endingTask;
     private StrawMap strawMap;
     private Location spawnLocation;
 
@@ -93,6 +95,7 @@ public class StrawBattle extends JavaPlugin {
         this.getLogger().info("Starting loading listeners... -> DONE");
 
         this.launchingTask = new LaunchingTask(this);
+        this.endingTask = new EndingTask(this);
 
         this.minPlayers = this.getConfig().getInt("min-players");
         this.prefix = this.getConfig().getString("game-prefix");
@@ -159,6 +162,14 @@ public class StrawBattle extends JavaPlugin {
      */
     public LaunchingTask getLaunchingTask() {
         return launchingTask;
+    }
+
+    /**
+     * Permet de gerer la tache de fin de partie
+     * @return l'instance de la task
+     */
+    public EndingTask getEndingTask() {
+        return endingTask;
     }
 
     /**
