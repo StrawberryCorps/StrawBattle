@@ -9,6 +9,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 /*
@@ -32,8 +34,11 @@ public class EndingTask extends BukkitRunnable {
     @Override
     public void run() {
         this.start = true;
+        if (this.strawBattle.getLaunchingTask().isStarted())
+            this.strawBattle.getLaunchingTask().cancel();
         if (this.cooldown == 0) {
-            this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().kickPlayer(this.strawBattle.getPrefix() + "§3Merci d'avoir joué ! Redémarrage du serveur en cours..."));
+            Collection<StrawPlayer> strawPlayers = new ArrayList<>(this.strawBattle.getStrawPlayers());
+            strawPlayers.forEach(strawPlayer -> strawPlayer.getPlayer().kickPlayer(this.strawBattle.getPrefix() + "§3Merci d'avoir joué ! Redémarrage du serveur en cours..."));
             this.strawBattle.getServer().spigot().restart();
         }
 

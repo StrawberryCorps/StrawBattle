@@ -6,6 +6,7 @@ import bzh.strawberry.strawbattle.managers.StrawBall;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,6 +49,7 @@ public class PlayerDeath implements Listener {
                 event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3est mort");
             }
 
+            player.playSound(player.getLocation(), Sound.ENTITY_RAVAGER_CELEBRATE, 100, 2);
             StrawBattle.STRAW_BATTLE.getStrawPlayer(player.getUniqueId()).eliminate();
             checkWin(player);
         } else {

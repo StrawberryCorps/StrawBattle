@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -34,8 +35,10 @@ public class PlayerQuit implements Listener {
                     StrawBattle.STRAW_BATTLE.getLaunchingTask().stop();
             }
         } else if (StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish) {
+            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3est mort en quittant la partie");
             checkWin(player);
         }
+        StrawBattle.STRAW_BATTLE.getStrawPlayers().remove(StrawBattle.STRAW_BATTLE.getStrawPlayer(event.getPlayer().getUniqueId()));
     }
 
     private void checkWin(Player player) {

@@ -5,6 +5,7 @@ import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.utils.ItemStackBuilder;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -75,13 +76,7 @@ public class LaunchingTask extends BukkitRunnable {
                     strawPlayer.getPlayer().setLevel(0);
                     strawPlayer.getPlayer().setExp(0);
 
-                    // téléportation sur la map
-                    Location location = strawBattle.getStrawMap().getLocations().get(pos);
-                    strawPlayer.getPlayer().teleport(location);
-                    ArmorStand armorStand = this.strawBattle.getStrawMap().getWorld().spawn(location, ArmorStand.class);
-                    armorStand.setGravity(false);
-                    armorStand.setVisible(false);
-                    armorStand.addPassenger(strawPlayer.getPlayer());
+                    strawPlayer.getPlayer().teleport(strawBattle.getStrawMap().getLocations().get(pos));
                     if (pos >= strawBattle.getStrawMap().getLocations().size())
                         pos = 0;
                     else pos++;
@@ -95,9 +90,15 @@ public class LaunchingTask extends BukkitRunnable {
             }
             if (cooldown == -10) {
                 this.cancel();
-                this.strawBattle.getStrawPlayers().forEach(strawPlayer -> Objects.requireNonNull(strawPlayer.getPlayer().getVehicle()).remove());
+
+                for (Block block : this.strawBattle.getStrawMap().getCuboid().blockList()) {
+                    if (block != null && (block.getType().equals(Material.BEACON) || block.getType().name().contains("STAINED_GLASS")))
+                        block.setType(Material.AIR);
+                }
+
                 for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                     if (!strawPlayer.isEliminate()) {
+                        strawPlayer.getPlayer().playSound(strawPlayer.getPlayer().getLocation(), Sound.EVENT_RAID_HORN, 100, 3);
                         strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3Bon jeu !");
                         strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIRE_CHARGE, 1, "§3StrawBall §9(Clic-droit)"));
                         strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));

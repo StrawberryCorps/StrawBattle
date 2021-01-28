@@ -55,10 +55,12 @@ public class StrawMap {
         this.locations.clear();
         this.setCuboid(load(this.getWorld(), Objects.requireNonNull(StrawBattle.STRAW_BATTLE.getConfig().getString("maps." + name + ".cuboid"))));
         for (Block block : this.getCuboid().blockList()) {
-            if (block != null && block.getType().equals(Material.BEACON))
-                this.locations.add(block.getLocation().add(0.5,2,0.5));
+            if (block != null && block.getType().equals(Material.BEACON)) {
+                this.locations.add(new Location(block.getWorld(), block.getLocation().getBlockX() + 0.5, block.getLocation().getBlockY() + 1, block.getLocation().getBlockZ() + 0.5));
+            }
         }
+        this.locations.forEach(location -> System.out.println(location.toString()));
         if (this.locations.isEmpty())
-            throw new StrawBattleException("Aucune position de spawn est défini sur la carte de jeu ! Merci de vérifier la présence de Bedrock");
+            throw new StrawBattleException("Aucune position de spawn est défini sur la carte de jeu ! Merci de vérifier la présence de BEACON");
     }
 }

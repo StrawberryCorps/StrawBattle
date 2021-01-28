@@ -35,9 +35,17 @@ public class PlayerJoin implements Listener {
             if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted()) StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimerAsynchronously(StrawBattle.STRAW_BATTLE, 0L, 20L);
         }
 
+        player.getInventory().clear();
+        player.getInventory().setArmorContents(null);
+        player.setHealth(player.getMaxHealth());
+        player.setFoodLevel(20);
+        player.setLevel(0);
+        player.setExp(0);
+
         if (!StrawBattle.STRAW_BATTLE.running) {
             event.setJoinMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a rejoint la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
             player.teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
+            player.setGameMode(GameMode.SURVIVAL);
         } else {
             player.setGameMode(GameMode.SPECTATOR);
             for(StrawPlayer strawPlayer : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {

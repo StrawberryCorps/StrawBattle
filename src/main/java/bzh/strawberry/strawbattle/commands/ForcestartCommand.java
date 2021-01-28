@@ -33,6 +33,7 @@ public class ForcestartCommand implements CommandExecutor {
             return false;
         }
 
+        player.sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§3Lancement de la partie ! Attention au départ");
         StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
         return true;
     }
