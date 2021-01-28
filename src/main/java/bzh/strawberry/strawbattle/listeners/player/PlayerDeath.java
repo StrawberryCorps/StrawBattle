@@ -32,21 +32,21 @@ public class PlayerDeath implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         if (player.getGameMode() != GameMode.SPECTATOR) {
-            player.spigot().respawn();
+            StrawBattle.STRAW_BATTLE.getServer().getScheduler().runTaskLater(StrawBattle.STRAW_BATTLE, () -> player.spigot().respawn(), 5);
             player.getWorld().strikeLightningEffect(player.getLocation()).setSilent(true);
             StrawPlayer strawPlayer = StrawBattle.STRAW_BATTLE.getStrawPlayer(player.getUniqueId());
             if (strawPlayer.getLastDamager() != null && !strawPlayer.getLastDamager().equals(player)) {
-                event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a été tué par §b" + strawPlayer.getLastDamager().getName());
+                event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3a été tué par §b" + strawPlayer.getLastDamager().getDisplayName());
             } else if (player.getLastDamageCause() != null && player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
                 if (entityDamageByEntityEvent.getDamager() instanceof Player) {
                     Player playerAttack = (Player) entityDamageByEntityEvent.getDamager();
-                    event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a été tué par §b" + playerAttack.getName());
+                    event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3a été tué par §b" + playerAttack.getDisplayName());
                 } else {
-                    event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3est mort");
+                    event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3est mort");
                 }
             } else {
-                event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3est mort");
+                event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3est mort");
             }
 
             player.playSound(player.getLocation(), Sound.ENTITY_RAVAGER_CELEBRATE, 100, 2);
@@ -67,7 +67,7 @@ public class PlayerDeath implements Listener {
                 for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
                     strawPlayers.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player);
                     player.showPlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
-                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getName() + " §3a gagné la partie !");
+                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getDisplayName() + " §3a gagné la partie !");
                     strawPlayers.getPlayer().setGameMode(GameMode.ADVENTURE);
                     strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
                 }

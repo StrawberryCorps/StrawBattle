@@ -29,13 +29,13 @@ public class PlayerQuit implements Listener {
         event.setQuitMessage(null);
         StrawBattle.STRAW_BATTLE.getStrawPlayers().remove(StrawBattle.STRAW_BATTLE.getStrawPlayer(event.getPlayer().getUniqueId()));
         if (!StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish) {
-            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a quitté la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
+            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3a quitté la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
             if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() - 1 <= StrawBattle.STRAW_BATTLE.getMinPlayers()) {
                 if (StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
                     StrawBattle.STRAW_BATTLE.getLaunchingTask().stop();
             }
         } else if (StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish) {
-            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3est mort en quittant la partie");
+            event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3est mort en quittant la partie");
             checkWin(player);
         }
         StrawBattle.STRAW_BATTLE.getStrawPlayers().remove(StrawBattle.STRAW_BATTLE.getStrawPlayer(event.getPlayer().getUniqueId()));
@@ -51,7 +51,7 @@ public class PlayerQuit implements Listener {
                 for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
                     strawPlayers.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player);
                     player.showPlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
-                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getName() + " §3a gagné la partie !");
+                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getDisplayName() + " §3a gagné la partie !");
                     strawPlayers.getPlayer().setGameMode(GameMode.ADVENTURE);
                     strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
                 }

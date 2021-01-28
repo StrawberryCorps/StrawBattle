@@ -2,6 +2,8 @@ package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
+import bzh.strawberry.strawbattle.utils.PlayerUtil;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -9,6 +11,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +48,21 @@ public class PlayerJoin implements Listener {
         player.setLevel(0);
         player.setExp(0);
 
+        if (player.getUniqueId().toString().equals("94ae5b55-8b29-4e41-822c-236aac87fcbf")
+                || player.getUniqueId().toString().equals("09186f54-9910-418e-90f3-d7772e731f73")
+                || player.getUniqueId().toString().equals("d11301c0-c842-4e2f-af1e-382ad85fe3c4")) {
+            PlayerUtil.setTag(player, "straw", 0, ChatColor.of("#b71c1c") + "§lSTRAW ", "");
+            player.setPlayerListName(ChatColor.of("#b71c1c") + "§lSTRAW " + ChatColor.of("#d32f2f") + player.getName());
+            player.setDisplayName(ChatColor.of("#b71c1c") + "§lSTRAW " + ChatColor.of("#d32f2f") + player.getName());
+            player.setCustomNameVisible(true);
+        } else {
+            PlayerUtil.setTag(player, "joueur", 1, "", "");
+            player.setPlayerListName(ChatColor.of("#BBDEFB") + player.getName());
+            player.setDisplayName(ChatColor.of("#BBDEFB") + player.getName());
+        }
+
         if (!StrawBattle.STRAW_BATTLE.running) {
-            event.setJoinMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a rejoint la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
+            event.setJoinMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3a rejoint la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
             player.teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
             player.setGameMode(GameMode.SURVIVAL);
         } else {
