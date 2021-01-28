@@ -52,9 +52,10 @@ public class StrawMap {
     }
 
     public void calculateSpawn() {
+        this.locations.clear();
         this.setCuboid(load(this.getWorld(), Objects.requireNonNull(StrawBattle.STRAW_BATTLE.getConfig().getString("maps." + name + ".cuboid"))));
         for (Block block : this.getCuboid().blockList()) {
-            if (block != null && block.getType().equals(Material.BEDROCK))
+            if (block != null && block.getType().equals(Material.BEACON))
                 this.locations.add(block.getLocation().add(0.5,2,0.5));
         }
         if (this.locations.isEmpty())

@@ -37,6 +37,12 @@ public class LaunchingTask extends BukkitRunnable {
         this.start = true;
 
         if (this.cooldown == 5) {
+            if (StrawBattle.STRAW_BATTLE.getStrawPlayers().stream().filter(strawPlayer -> !strawPlayer.isEliminate()).count() <= 1) {
+                StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§3Annulation du lancement de la partie ! Nombre de joueurs insuffisant :("));
+                this.stop();
+                return;
+            }
+
             StrawMap strawMap = this.strawBattle.getStrawMap();
 
             World world = Bukkit.createWorld(new WorldCreator(strawMap.getName()));
@@ -107,7 +113,6 @@ public class LaunchingTask extends BukkitRunnable {
 
 
     public void stop() {
-        if (this.cooldown <= 5) return;
         this.start = false;
         cancel();
         this.cooldown = 15;

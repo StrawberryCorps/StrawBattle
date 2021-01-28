@@ -28,7 +28,7 @@ public class ForcestartCommand implements CommandExecutor {
             return false;
         }
 
-        if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() < 1) {
+        if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() <= 1) {
             player.sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§cIl faut au minimum 2 joueurs pour lancer la partie !");
             return false;
         }
