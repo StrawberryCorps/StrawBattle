@@ -22,7 +22,7 @@ public class PlayerGameModeChange implements Listener {
     }
 
     @EventHandler
-    public void onPlayerGameModeChange(PlayerGameModeChangeEvent event){
+    public void onPlayerGameModeChange(PlayerGameModeChangeEvent event) {
         Player player = event.getPlayer();
         if (event.getNewGameMode() == GameMode.SPECTATOR) StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player));
         else StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player));

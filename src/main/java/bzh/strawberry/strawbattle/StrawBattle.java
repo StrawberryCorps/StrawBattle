@@ -5,6 +5,7 @@ import bzh.strawberry.strawbattle.commands.GithubCommand;
 import bzh.strawberry.strawbattle.listeners.block.BlockBreak;
 import bzh.strawberry.strawbattle.listeners.block.BlockPlace;
 import bzh.strawberry.strawbattle.listeners.entity.EntityDamage;
+import bzh.strawberry.strawbattle.listeners.entity.EntityDismount;
 import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
 import bzh.strawberry.strawbattle.listeners.player.*;
 import bzh.strawberry.strawbattle.listeners.world.WeatherChange;
@@ -13,6 +14,7 @@ import bzh.strawberry.strawbattle.listeners.world.WorldLoad;
 import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.tasks.LaunchingTask;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,6 +41,7 @@ public class StrawBattle extends JavaPlugin {
     private List<StrawMap> strawMaps;
     private LaunchingTask launchingTask;
     private StrawMap strawMap;
+    private Location spawnLocation;
 
     @Override
     public void onEnable() {
@@ -57,10 +60,13 @@ public class StrawBattle extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new BlockPlace(), this);
         this.getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
         this.getServer().getPluginManager().registerEvents(new EntityDamage(), this);
+        this.getServer().getPluginManager().registerEvents(new EntityDismount(), this);
         this.getServer().getPluginManager().registerEvents(new FoodChangeLevel(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerDropItem(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerToggleSneak(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerSwapHandItems(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryClick(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
@@ -85,6 +91,8 @@ public class StrawBattle extends JavaPlugin {
             strawMaps.add(strawMap);
         }
         this.getLogger().info("Starting loading maps... -> DONE");
+
+        this.spawnLocation = new Location(this.getServer().getWorld(Objects.requireNonNull(this.getConfig().getString("spawn.world"))), this.getConfig().getDouble("spawn.x"), this.getConfig().getDouble("spawn.y"), this.getConfig().getDouble("spawn.z"), this.getConfig().getInt("spawn.pitch"), this.getConfig().getInt("spawn.yaw"));
 
         this.strawPlayers = new ArrayList<>();
         this.getLogger().info("Plugin enabled in "+(System.currentTimeMillis() - begin)+" ms.");
@@ -151,5 +159,13 @@ public class StrawBattle extends JavaPlugin {
      */
     public String getPrefix() {
         return prefix;
+    }
+
+    /**
+     * La position du point de spawn pour le début et la fin d'une partie
+     * @return une location
+     */
+    public Location getSpawnLocation() {
+        return spawnLocation;
     }
 }

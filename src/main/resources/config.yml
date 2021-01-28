@@ -1,5 +1,12 @@
 min-players: 6
 game-prefix: "§9[§3StrawBattle§9]§r "
+spawn:
+  world: world
+  x: 0.5
+  y: 80
+  z: 0.5
+  yaw: 0
+  pitch: 0
 maps:
   Rainbow:
     material: DIRT

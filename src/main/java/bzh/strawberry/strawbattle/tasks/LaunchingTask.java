@@ -71,6 +71,7 @@ public class LaunchingTask extends BukkitRunnable {
                     strawPlayer.getPlayer().teleport(location);
                     ArmorStand armorStand = this.strawBattle.getStrawMap().getWorld().spawn(location, ArmorStand.class);
                     armorStand.setGravity(false);
+                    armorStand.setVisible(false);
                     armorStand.addPassenger(strawPlayer.getPlayer());
                     if (pos >= strawBattle.getStrawMap().getLocations().size())
                         pos = 0;

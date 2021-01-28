@@ -1,6 +1,8 @@
 package bzh.strawberry.strawbattle.managers.data;
 
+import bzh.strawberry.strawbattle.StrawBattle;
 import bzh.strawberry.strawbattle.managers.StrawMap;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 /*
@@ -38,6 +40,11 @@ public class StrawPlayer {
      */
     public void eliminate() {
         this.eliminate = true;
+        for(StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
+            strawPlayers.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player);
+            if (strawPlayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
+                player.hidePlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
+        }
     }
 
     /**

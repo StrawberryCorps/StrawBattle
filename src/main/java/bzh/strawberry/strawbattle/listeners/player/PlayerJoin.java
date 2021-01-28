@@ -37,6 +37,7 @@ public class PlayerJoin implements Listener {
 
         if (!StrawBattle.STRAW_BATTLE.running) {
             event.setJoinMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getName() + " §3a rejoint la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
+            player.teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
         } else {
             player.setGameMode(GameMode.SPECTATOR);
             for(StrawPlayer strawPlayer : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
