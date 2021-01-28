@@ -7,7 +7,6 @@ api-version: 1.16
 commands:
   forcestart:
     description: Pour forcer le lancement du jeu
-    usage: /forcestart
     permission: strawbattle.forcestart
     permission-message: Vous n'êtes pas autorisé a effectuer cette commande !
     aliases:
@@ -15,7 +14,6 @@ commands:
       - force
   github:
     description: Pour avoir toutes les infos de la StrawBerryCorp
-    usage: /github
     aliases:
       - git
       - source

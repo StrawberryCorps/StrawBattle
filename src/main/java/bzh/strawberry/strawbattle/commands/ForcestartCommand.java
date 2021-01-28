@@ -23,8 +23,17 @@ public class ForcestartCommand implements CommandExecutor {
         if (!(commandSender instanceof Player)) return false;
         Player player = (Player) commandSender;
         if (!player.hasPermission("strawbattle.forcestart")) return false;
-        if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
-            StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
+        if (StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted()) {
+            player.sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§3La partie est déjà en cours !");
+            return false;
+        }
+
+        if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() < 1) {
+            player.sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§cIl faut au minimum 2 joueurs pour lancer la partie !");
+            return false;
+        }
+
+        StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);
         return true;
     }
 }

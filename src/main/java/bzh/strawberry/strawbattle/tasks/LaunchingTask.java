@@ -51,6 +51,11 @@ public class LaunchingTask extends BukkitRunnable {
         }
 
         if (this.cooldown == 0) {
+            if (StrawBattle.STRAW_BATTLE.getStrawPlayers().stream().filter(strawPlayer -> !strawPlayer.isEliminate()).count() <= 1) {
+                StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§3Annulation du lancement de la partie ! Nombre de joueurs insuffisant :("));
+                this.stop();
+                return;
+            }
             this.strawBattle.running = true;
             this.strawBattle.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().getInventory().clear());
             int pos = 0;
@@ -63,8 +68,6 @@ public class LaunchingTask extends BukkitRunnable {
                     strawPlayer.getPlayer().setFoodLevel(20);
                     strawPlayer.getPlayer().setLevel(0);
                     strawPlayer.getPlayer().setExp(0);
-                    strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIRE_CHARGE, 1, "§3StrawBall §9(Clic-droit)"));
-                    strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
 
                     // téléportation sur la map
                     Location location = strawBattle.getStrawMap().getLocations().get(pos);
@@ -87,6 +90,13 @@ public class LaunchingTask extends BukkitRunnable {
             if (cooldown == -10) {
                 this.cancel();
                 this.strawBattle.getStrawPlayers().forEach(strawPlayer -> Objects.requireNonNull(strawPlayer.getPlayer().getVehicle()).remove());
+                for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
+                    if (!strawPlayer.isEliminate()) {
+                        strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3Bon jeu !");
+                        strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIRE_CHARGE, 1, "§3StrawBall §9(Clic-droit)"));
+                        strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
+                    }
+                }
             }
         }
 

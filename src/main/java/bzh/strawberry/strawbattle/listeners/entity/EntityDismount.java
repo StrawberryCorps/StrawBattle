@@ -21,6 +21,6 @@ public class EntityDismount implements Listener {
 
     @EventHandler
     public void onEntityDismount(EntityDismountEvent event) {
-        StrawBattle.STRAW_BATTLE.getServer().getScheduler().runTaskLater(StrawBattle.STRAW_BATTLE, () -> event.getDismounted().addPassenger(event.getEntity()), 1);
+        StrawBattle.STRAW_BATTLE.getServer().getScheduler().runTaskLater(StrawBattle.STRAW_BATTLE, () -> event.getDismounted().addPassenger(event.getEntity()), 5);
     }
 }

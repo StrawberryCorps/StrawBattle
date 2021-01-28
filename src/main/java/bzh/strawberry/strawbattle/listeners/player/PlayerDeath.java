@@ -1,6 +1,7 @@
 package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
+import bzh.strawberry.strawbattle.exception.StrawBattleException;
 import bzh.strawberry.strawbattle.managers.StrawBall;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import org.bukkit.GameMode;
@@ -57,11 +58,14 @@ public class PlayerDeath implements Listener {
     private void checkWin(Player player) {
         long inGame = StrawBattle.STRAW_BATTLE.getStrawPlayers().stream().filter(strawPlayer -> !strawPlayer.isEliminate()).count();
         if (inGame <= 1) {
+            StrawBattle.STRAW_BATTLE.finish = true;
+
             StrawPlayer strawPlayerWinner = StrawBattle.STRAW_BATTLE.getStrawPlayers().stream().filter(strawPlayer -> !strawPlayer.isEliminate()).findFirst().get();
             if (strawPlayerWinner != null) {
                 for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
                     strawPlayers.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player);
                     player.showPlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
+                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getName() + " §3a gagné la partie !");
                     strawPlayers.getPlayer().setGameMode(GameMode.ADVENTURE);
                     strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
                 }

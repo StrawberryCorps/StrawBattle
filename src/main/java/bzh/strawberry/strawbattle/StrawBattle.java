@@ -67,6 +67,7 @@ public class StrawBattle extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerToggleSneak(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerRespawn(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerSwapHandItems(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryClick(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
