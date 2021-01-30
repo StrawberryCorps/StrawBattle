@@ -14,7 +14,7 @@
 [license-shield]: https://img.shields.io/github/license/StrawberryCorps/StrawBattle?style=for-the-badge
 [license-url]: https://github.com/StrawberryCorps/StrawBattle/blob/main/LICENSE
 
----
+--- 
 
 ## Installation rapide 
 
