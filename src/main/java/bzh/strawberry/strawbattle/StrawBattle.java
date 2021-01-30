@@ -6,7 +6,6 @@ import bzh.strawberry.strawbattle.exception.StrawBattleException;
 import bzh.strawberry.strawbattle.listeners.block.BlockBreak;
 import bzh.strawberry.strawbattle.listeners.block.BlockPlace;
 import bzh.strawberry.strawbattle.listeners.entity.EntityDamage;
-import bzh.strawberry.strawbattle.listeners.entity.EntityDismount;
 import bzh.strawberry.strawbattle.listeners.entity.EntitySpawn;
 import bzh.strawberry.strawbattle.listeners.player.*;
 import bzh.strawberry.strawbattle.listeners.world.WeatherChange;
@@ -77,7 +76,6 @@ public class StrawBattle extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new BlockPlace(), this);
         this.getServer().getPluginManager().registerEvents(new EntitySpawn(), this);
         this.getServer().getPluginManager().registerEvents(new EntityDamage(), this);
-        this.getServer().getPluginManager().registerEvents(new EntityDismount(), this);
         this.getServer().getPluginManager().registerEvents(new FoodChangeLevel(), this);
         this.getServer().getPluginManager().registerEvents(new AsyncPlayerChat(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerDropItem(), this);

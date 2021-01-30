@@ -22,7 +22,7 @@ public class EntityDamage implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if (!StrawBattle.STRAW_BATTLE.running)
+        if (!StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish)
             event.setCancelled(true);
         if (event.getEntity() instanceof Player) {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) event.setCancelled(true);
