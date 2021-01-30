@@ -18,7 +18,9 @@ import bzh.strawberry.strawbattle.tasks.LaunchingTask;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.util.*;
@@ -48,14 +50,18 @@ public class StrawBattle extends JavaPlugin {
     private StrawMap strawMap;
     private Location spawnLocation;
 
+    protected StrawBattle(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
+
+    public StrawBattle() {
+        super();
+    }
     @Override
     public void onLoad() {
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
-            if (deleteWorldFolder(new File(getServer().getWorldContainer(), name))) {
+            if (deleteWorldFolder(new File(getServer().getWorldContainer(), name)))
                 copyWorld(new File(getDataFolder(), name), new File(getServer().getWorldContainer(), name));
-            } else {
-                throw new StrawBattleException("Suppression de la map : " + name + " impossible !");
-            }
         }
     }
 

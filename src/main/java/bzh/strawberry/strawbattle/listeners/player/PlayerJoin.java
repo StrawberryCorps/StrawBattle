@@ -42,7 +42,10 @@ public class PlayerJoin implements Listener {
         }
 
         player.getInventory().clear();
-        player.getInventory().setArmorContents(null);
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
         player.setHealth(player.getMaxHealth());
         player.setFoodLevel(20);
         player.setLevel(0);

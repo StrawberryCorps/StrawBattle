@@ -70,7 +70,10 @@ public class LaunchingTask extends BukkitRunnable {
                 if (!strawPlayer.isEliminate()) {
                     strawPlayer.getPlayer().setGameMode(GameMode.SURVIVAL);
                     strawPlayer.getPlayer().getInventory().clear();
-                    strawPlayer.getPlayer().getInventory().setArmorContents(null);
+                    strawPlayer.getPlayer().getInventory().setHelmet(null);
+                    strawPlayer.getPlayer().getInventory().setChestplate(null);
+                    strawPlayer.getPlayer().getInventory().setLeggings(null);
+                    strawPlayer.getPlayer().getInventory().setBoots(null);
                     strawPlayer.getPlayer().setHealth(strawPlayer.getPlayer().getMaxHealth());
                     strawPlayer.getPlayer().setFoodLevel(20);
                     strawPlayer.getPlayer().setLevel(0);
