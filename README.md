@@ -8,7 +8,7 @@
 [forks-shield]: https://img.shields.io/github/forks/StrawberryCorps/StrawBattle?style=for-the-badge
 [forks-url]: https://github.com/StrawberryCorps/StrawBattle/network/members
 [download-shield]: https://img.shields.io/github/downloads/StrawberryCorps/StrawBattle/total?style=for-the-badge
-[download-url]: https://github.com/StrawberryCorps/StrawBattle/
+[download-url]: https://github.com/StrawberryCorps/StrawBattle/releases/latest
 [issues-shield]: https://img.shields.io/github/issues/StrawberryCorps/StrawBattle?style=for-the-badge
 [issues-url]: https://github.com/StrawberryCorps/StrawBattle/issues
 [license-shield]: https://img.shields.io/github/license/StrawberryCorps/StrawBattle?style=for-the-badge
