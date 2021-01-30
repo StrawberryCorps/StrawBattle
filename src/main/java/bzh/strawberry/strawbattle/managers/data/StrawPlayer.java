@@ -40,10 +40,12 @@ public class StrawPlayer {
      */
     public void eliminate() {
         this.eliminate = true;
-        for(StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
-            strawPlayers.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player);
-            if (strawPlayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
-                player.hidePlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
+        for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
+            if (!strawPlayers.getPlayer().getUniqueId().toString().equals(getPlayer().getUniqueId().toString())) {
+                strawPlayers.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player);
+                if (strawPlayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
+                    player.hidePlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
+            }
         }
     }
 

@@ -60,8 +60,8 @@ public class StrawBattle extends JavaPlugin {
     @Override
     public void onLoad() {
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
-            if (deleteWorldFolder(new File(getServer().getWorldContainer(), name)))
-                copyWorld(new File(getDataFolder(), name), new File(getServer().getWorldContainer(), name));
+            deleteWorldFolder(new File(getServer().getWorldContainer(), name));
+            copyWorld(new File(getDataFolder(), name), new File(getServer().getWorldContainer(), name));
         }
     }
 
@@ -111,9 +111,10 @@ public class StrawBattle extends JavaPlugin {
         this.strawMaps = new ArrayList<>();
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
             StrawMap strawMap = new StrawMap(name);
-            strawMap.setItem(new ItemStack(Material.valueOf(getConfig().getString("maps." + name + ".material"))));
             strawMaps.add(strawMap);
         }
+        if (strawMaps.size() == 0)
+            throw new StrawBattleException("Vous devez avoir au minimum une carte de configurer pour lancer le serveur !");
         this.getLogger().info("Starting loading maps... -> DONE");
 
         this.spawnLocation = new Location(this.getServer().getWorld(Objects.requireNonNull(this.getConfig().getString("spawn.world"))), this.getConfig().getDouble("spawn.x"), this.getConfig().getDouble("spawn.y"), this.getConfig().getDouble("spawn.z"), this.getConfig().getInt("spawn.pitch"), this.getConfig().getInt("spawn.yaw"));

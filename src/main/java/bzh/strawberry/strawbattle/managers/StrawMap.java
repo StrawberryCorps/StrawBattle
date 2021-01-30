@@ -26,7 +26,6 @@ public class StrawMap {
 
     private String name;
 
-    private ItemStack item;
     private List<Location> locations;
     private Cuboid cuboid;
 
@@ -38,10 +37,6 @@ public class StrawMap {
     public World getWorld() { return Bukkit.getWorld(name); }
 
     public String getName() { return this.name; }
-
-    public ItemStack getItemStack() { return this.item; }
-
-    public void setItem(ItemStack item) { this.item = item; }
 
     public Cuboid getCuboid() { return this.cuboid; }
 
@@ -59,7 +54,6 @@ public class StrawMap {
                 this.locations.add(new Location(block.getWorld(), block.getLocation().getBlockX() + 0.5, block.getLocation().getBlockY() + 1, block.getLocation().getBlockZ() + 0.5));
             }
         }
-        this.locations.forEach(location -> System.out.println(location.toString()));
         if (this.locations.isEmpty())
             throw new StrawBattleException("Aucune position de spawn est défini sur la carte de jeu ! Merci de vérifier la présence de BEACON");
     }

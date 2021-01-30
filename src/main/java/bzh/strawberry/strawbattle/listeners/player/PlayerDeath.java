@@ -33,7 +33,7 @@ public class PlayerDeath implements Listener {
         Player player = event.getEntity();
         if (player.getGameMode() != GameMode.SPECTATOR) {
             StrawBattle.STRAW_BATTLE.getServer().getScheduler().runTaskLater(StrawBattle.STRAW_BATTLE, () -> player.spigot().respawn(), 5);
-            player.getWorld().strikeLightningEffect(player.getLocation()).setSilent(true);
+            player.getWorld().strikeLightningEffect(player.getLocation());
             StrawPlayer strawPlayer = StrawBattle.STRAW_BATTLE.getStrawPlayer(player.getUniqueId());
             if (strawPlayer.getLastDamager() != null && !strawPlayer.getLastDamager().equals(player)) {
                 strawPlayer.getLastDamager().playSound(strawPlayer.getLastDamager().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 100, 1);

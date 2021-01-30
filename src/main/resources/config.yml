@@ -8,6 +8,3 @@ spawn:
   yaw: 0
   pitch: 0
 maps:
-  Rainbow:
-    material: DIRT
-    cuboid: -45.5,255,-45.5:45.5,0,45.5
