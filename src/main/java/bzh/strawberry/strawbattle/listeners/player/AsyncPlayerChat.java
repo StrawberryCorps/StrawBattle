@@ -28,8 +28,8 @@ public class AsyncPlayerChat implements Listener {
         event.setCancelled(true);
         String message = event.getMessage();
         for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
-            String messageTmp = message.replaceAll(("(?i)" + strawPlayers.getPlayer().getName()), ChatColor.of("#00B0FF") + "§l" + strawPlayers.getPlayer().getName() + "§r");
-            strawPlayers.getPlayer().sendMessage(ChatColor.of("#BBDEFB") + event.getPlayer().getDisplayName() + " §7» §r" + ChatColor.of("#B3E5FC") + messageTmp);
+            String messageTmp = message.replaceAll(("(?i)" + strawPlayers.getPlayer().getName()), "§3§l" + strawPlayers.getPlayer().getName() + "§r");
+            strawPlayers.getPlayer().sendMessage("§7" + event.getPlayer().getDisplayName() + " §7» §r" + messageTmp);
         }
     }
 }

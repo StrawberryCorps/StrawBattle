@@ -51,7 +51,6 @@ public class PlayerDeath implements Listener {
                 event.setDeathMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3est mort");
             }
 
-            player.playSound(player.getLocation(), Sound.ENTITY_RAVAGER_CELEBRATE, 100, 2);
             StrawBattle.STRAW_BATTLE.getStrawPlayer(player.getUniqueId()).eliminate();
             checkWin(player);
         } else {

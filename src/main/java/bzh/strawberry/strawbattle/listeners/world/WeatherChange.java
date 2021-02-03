@@ -1,11 +1,9 @@
 package bzh.strawberry.strawbattle.listeners.world;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import org.bukkit.GameRule;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.event.world.WorldLoadEvent;
 
 /*
  * This file WeatherChange is part of a project StrawBattle.StrawBattle.

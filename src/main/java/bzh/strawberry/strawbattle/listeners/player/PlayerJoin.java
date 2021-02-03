@@ -54,14 +54,14 @@ public class PlayerJoin implements Listener {
         if (player.getUniqueId().toString().equals("94ae5b55-8b29-4e41-822c-236aac87fcbf")
                 || player.getUniqueId().toString().equals("09186f54-9910-418e-90f3-d7772e731f73")
                 || player.getUniqueId().toString().equals("d11301c0-c842-4e2f-af1e-382ad85fe3c4")) {
-            PlayerUtil.setTag(player, "straw", 0, ChatColor.of("#b71c1c") + "§lSTRAW ", "");
-            player.setPlayerListName(ChatColor.of("#b71c1c") + "§lSTRAW " + ChatColor.of("#d32f2f") + player.getName());
-            player.setDisplayName(ChatColor.of("#b71c1c") + "§lSTRAW " + ChatColor.of("#d32f2f") + player.getName());
+            PlayerUtil.setTag(player, "straw", 0,"§4§lSTRAW §c", "");
+            player.setPlayerListName("§4§lSTRAW §c" + player.getName());
+            player.setDisplayName("§4§lSTRAW §c" + player.getName());
             player.setCustomNameVisible(true);
         } else {
             PlayerUtil.setTag(player, "joueur", 1, "", "");
-            player.setPlayerListName(ChatColor.of("#BBDEFB") + player.getName());
-            player.setDisplayName(ChatColor.of("#BBDEFB") + player.getName());
+            player.setPlayerListName("§7" + player.getName());
+            player.setDisplayName("§7" + player.getName());
         }
 
         if (!StrawBattle.STRAW_BATTLE.running) {

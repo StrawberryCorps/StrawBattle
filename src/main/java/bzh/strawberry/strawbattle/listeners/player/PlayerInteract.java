@@ -32,9 +32,9 @@ public class PlayerInteract implements Listener {
             if (event.getItem() == null || event.getItem().getType() == Material.AIR)
                 return;
 
-            if (event.getItem().getType().equals(Material.FIRE_CHARGE)) {
+            if (event.getItem().getType().equals(Material.FIREBALL)) {
                 event.setCancelled(true);
-                if (player.hasCooldown(Material.FIRE_CHARGE))
+                if (player.hasCooldown(Material.FIREBALL))
                     return;
 
                 Fireball fireball = player.launchProjectile(Fireball.class);
@@ -44,7 +44,7 @@ public class PlayerInteract implements Listener {
                 fireball.setIsIncendiary(false);
                 fireball.setYield(4);
 
-                player.setCooldown(Material.FIRE_CHARGE, 40);
+                player.setCooldown(Material.FIREBALL, 40);
             }
         }
     }

@@ -101,9 +101,8 @@ public class LaunchingTask extends BukkitRunnable {
 
                 for (StrawPlayer strawPlayer : this.strawBattle.getStrawPlayers()) {
                     if (!strawPlayer.isEliminate()) {
-                        strawPlayer.getPlayer().playSound(strawPlayer.getPlayer().getLocation(), Sound.EVENT_RAID_HORN, 100, 3);
                         strawPlayer.getPlayer().sendMessage(this.strawBattle.getPrefix() + "§3Bon jeu !");
-                        strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIRE_CHARGE, 1, "§3StrawBall §9(Clic-droit)"));
+                        strawPlayer.getPlayer().getInventory().setItem(0, new ItemStackBuilder(Material.FIREBALL, 1, "§3StrawBall §9(Clic-droit)"));
                         strawPlayer.getPlayer().getInventory().setItem(1, new ItemStackBuilder(Material.BLAZE_ROD, 1, "§3Éjecteur §9(Clic-droit)").addEnchant(true, new ItemStackBuilder.EnchantmentBuilder(Enchantment.KNOCKBACK, 1)));
                     }
                 }

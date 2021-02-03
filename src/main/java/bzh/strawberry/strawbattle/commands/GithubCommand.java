@@ -2,13 +2,10 @@ package bzh.strawberry.strawbattle.commands;
 
 import bzh.strawberry.strawbattle.StrawBattle;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 
 /*
  * This file GithubCommand is part of a project StrawBattle.StrawBattle.
@@ -26,7 +23,6 @@ public class GithubCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String... strings) {
         TextComponent message = new TextComponent("§9[§3StrawberryCorp§9] §9Notre code source est disponible ici !");
         message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/StrawberryCorps/StrawBattle"));
-        message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Les sources du jeu StrawBattle")));
         commandSender.spigot().sendMessage(message);
         return true;
     }
