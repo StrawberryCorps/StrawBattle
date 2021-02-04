@@ -1,12 +1,10 @@
 package bzh.strawberry.strawbattle.listeners.world;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
-import org.bukkit.event.world.WorldLoadEvent;
 
 /*
  * This file WorldInit is part of a project StrawBattle.StrawBattle.

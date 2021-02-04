@@ -3,7 +3,6 @@ package bzh.strawberry.strawbattle.listeners.player;
 import bzh.strawberry.strawbattle.StrawBattle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 /*
@@ -19,7 +18,7 @@ public class PlayerSwapHandItems implements Listener {
     }
 
     @EventHandler
-    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event){
+    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
         event.setCancelled(true);
     }
 }

@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
  */
 public class StrawBall {
 
-    private Fireball fireball;
-    private Player player;
+    private final Fireball fireball;
+    private final Player player;
 
     public StrawBall(Fireball fireball, Player player) {
         this.fireball = fireball;

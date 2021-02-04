@@ -1,12 +1,9 @@
 package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.spigotmc.event.entity.EntityDismountEvent;
 
 /*
  * This file PlayerToggleSneak is part of a project StrawBattle.StrawBattle.

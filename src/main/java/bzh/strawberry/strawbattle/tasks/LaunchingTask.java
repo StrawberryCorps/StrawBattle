@@ -7,13 +7,7 @@ import bzh.strawberry.strawbattle.utils.ItemStackBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.Objects;
 
 /*
  * This file LaunchingTask is part of a project StrawBattle.StrawBattle.
@@ -122,7 +116,9 @@ public class LaunchingTask extends BukkitRunnable {
         this.cooldown = 15;
     }
 
-    public int getCooldown() { return this.cooldown; }
+    public int getCooldown() {
+        return this.cooldown;
+    }
 
     public boolean isStarted() {
         return this.start;

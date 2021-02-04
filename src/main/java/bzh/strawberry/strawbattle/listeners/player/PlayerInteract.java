@@ -1,17 +1,12 @@
 package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * This file PlayerInteract is part of a project StrawBattle.StrawBattle.

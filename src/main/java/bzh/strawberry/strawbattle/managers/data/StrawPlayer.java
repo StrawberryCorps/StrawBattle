@@ -21,6 +21,7 @@ public class StrawPlayer {
 
     /**
      * Création d'une structure pour gérer les joueurs sur la partie de jeu
+     *
      * @param player le joueur
      */
     public StrawPlayer(Player player) {
@@ -29,6 +30,7 @@ public class StrawPlayer {
 
     /**
      * Pour avoir l'instance du joueur
+     *
      * @return le joueur
      */
     public Player getPlayer() {
@@ -51,6 +53,7 @@ public class StrawPlayer {
 
     /**
      * Pour savoir si un joueur est éliminé
+     *
      * @return true si le joueur est éliminé
      */
     public boolean isEliminate() {
@@ -59,6 +62,7 @@ public class StrawPlayer {
 
     /**
      * Connaitre le joueur qui a mis des dégats en dernier
+     *
      * @return le dernier joueur qui a mis des dégats sur le joueur
      */
     public Player getLastDamager() {
@@ -67,6 +71,7 @@ public class StrawPlayer {
 
     /**
      * Permet de mettre a jour le dernier jour qui a mis des dégats
+     *
      * @param lastDamager
      */
     public void setLastDamager(Player lastDamager) {

@@ -16,8 +16,6 @@ import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.tasks.EndingTask;
 import bzh.strawberry.strawbattle.tasks.LaunchingTask;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
@@ -57,6 +55,7 @@ public class StrawBattle extends JavaPlugin {
     public StrawBattle() {
         super();
     }
+
     @Override
     public void onLoad() {
         for (String name : Objects.requireNonNull(getConfig().getConfigurationSection("maps")).getKeys(false)) {
@@ -120,7 +119,7 @@ public class StrawBattle extends JavaPlugin {
         this.spawnLocation = new Location(this.getServer().getWorld(Objects.requireNonNull(this.getConfig().getString("spawn.world"))), this.getConfig().getDouble("spawn.x"), this.getConfig().getDouble("spawn.y"), this.getConfig().getDouble("spawn.z"), this.getConfig().getInt("spawn.pitch"), this.getConfig().getInt("spawn.yaw"));
 
         this.strawPlayers = new ArrayList<>();
-        this.getLogger().info("Plugin enabled in "+(System.currentTimeMillis() - begin)+" ms.");
+        this.getLogger().info("Plugin enabled in " + (System.currentTimeMillis() - begin) + " ms.");
         this.getLogger().info("######################## [" + this.getDescription().getName() + " - " + this.getDescription().getVersion() + " | Author(s) : " + this.getDescription().getAuthors().toString() + "] #################################");
     }
 
@@ -132,6 +131,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Permet de charger la map de jeu avant le lancement de la partie et de calculer les points de spawn
+     *
      * @param strawMap qui a été séléctionné
      */
     public void loadMap(StrawMap strawMap) {
@@ -141,6 +141,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Permet d'avoir la liste des joueurs en jeu
+     *
      * @return la liste des joueurs en jeu
      */
     public Collection<StrawPlayer> getStrawPlayers() {
@@ -149,6 +150,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Permet de récupérer l'instance d'un joueur a partir de son UUID
+     *
      * @param uuid pour la recherche
      * @return un strawplayer si présent dans la partie sinon null
      */
@@ -164,6 +166,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Permet de lancer la tache de lancement de la partie
+     *
      * @return l'instance de la task
      */
     public LaunchingTask getLaunchingTask() {
@@ -172,6 +175,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Permet de gerer la tache de fin de partie
+     *
      * @return l'instance de la task
      */
     public EndingTask getEndingTask() {
@@ -180,6 +184,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Le nombre minimum de joueur pour lancer la partie de façon automatique
+     *
      * @return un entier du nombre de joueur requis
      */
     public int getMinPlayers() {
@@ -188,6 +193,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * Le prefix qui doit être mis avant les messages d'informations
+     *
      * @return la chaine du prefix
      */
     public String getPrefix() {
@@ -196,6 +202,7 @@ public class StrawBattle extends JavaPlugin {
 
     /**
      * La position du point de spawn pour le début et la fin d'une partie
+     *
      * @return une location
      */
     public Location getSpawnLocation() {

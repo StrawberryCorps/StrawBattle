@@ -25,22 +25,4 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StrawBattleTest {
 
-    private ServerMock server;
-    private StrawBattle strawBattle;
-
-    @Before
-    public void setUp() {
-        this.server = MockBukkit.mock();
-        this.strawBattle = MockBukkit.load(StrawBattle.class);
-    }
-
-    @Test
-    public void testPlugin() {
-        assertEquals(strawBattle.getName(), "StrawBattle");
-    }
-
-    @After
-    public void tearDown() {
-        MockBukkit.unmock();
-    }
 }

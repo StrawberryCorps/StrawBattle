@@ -1,13 +1,6 @@
 package bzh.strawberry.strawbattle.utils;
 
 import java.io.*;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.nio.file.StandardCopyOption.COPY_ATTRIBUTES;
 
 /*
  * This file WorldUtil is part of a project StrawBattle.StrawBattle.
@@ -28,7 +21,7 @@ public class WorldUtil {
                 }
             }
         }
-        return(path.delete());
+        return (path.delete());
     }
 
     public static void copyWorld(File source, File target) {

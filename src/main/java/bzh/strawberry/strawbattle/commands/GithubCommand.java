@@ -8,7 +8,6 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 
 /*
  * This file GithubCommand is part of a project StrawBattle.StrawBattle.
@@ -19,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 public class GithubCommand implements CommandExecutor {
 
     public GithubCommand() {
-         StrawBattle.STRAW_BATTLE.getLogger().info("[COMMAND] Registered Command : " + getClass().getName());
+        StrawBattle.STRAW_BATTLE.getLogger().info("[COMMAND] Registered Command : " + getClass().getName());
     }
 
     @Override

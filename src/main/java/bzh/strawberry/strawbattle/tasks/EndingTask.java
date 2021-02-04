@@ -1,17 +1,11 @@
 package bzh.strawberry.strawbattle.tasks;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import bzh.strawberry.strawbattle.managers.StrawMap;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
-import bzh.strawberry.strawbattle.utils.ItemStackBuilder;
-import org.bukkit.*;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 /*
  * This file EndingTask is part of a project StrawBattle.StrawBattle.

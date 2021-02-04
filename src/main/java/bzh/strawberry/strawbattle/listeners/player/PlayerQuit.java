@@ -2,14 +2,11 @@ package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 /*
  * This file PlayerQuit is part of a project StrawBattle.StrawBattle.
@@ -34,7 +31,7 @@ public class PlayerQuit implements Listener {
                 if (StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
                     StrawBattle.STRAW_BATTLE.getLaunchingTask().stop();
             }
-        } else if (StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish) {
+        } else if (StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish && !StrawBattle.STRAW_BATTLE.getStrawPlayer(player.getUniqueId()).isEliminate()) {
             event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3est mort en quittant la partie");
             checkWin(player);
         }
@@ -47,14 +44,12 @@ public class PlayerQuit implements Listener {
             StrawBattle.STRAW_BATTLE.finish = true;
 
             StrawPlayer strawPlayerWinner = StrawBattle.STRAW_BATTLE.getStrawPlayers().stream().filter(strawPlayer -> !strawPlayer.isEliminate()).findFirst().get();
-            if (strawPlayerWinner != null) {
-                for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
-                    strawPlayers.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player);
-                    player.showPlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
-                    strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getDisplayName() + " §3a gagné la partie !");
-                    strawPlayers.getPlayer().setGameMode(GameMode.ADVENTURE);
-                    strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
-                }
+            for (StrawPlayer strawPlayers : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
+                strawPlayers.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player);
+                player.showPlayer(StrawBattle.STRAW_BATTLE, strawPlayers.getPlayer());
+                strawPlayers.getPlayer().sendMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + strawPlayerWinner.getPlayer().getDisplayName() + " §3a gagné la partie !");
+                strawPlayers.getPlayer().setGameMode(GameMode.ADVENTURE);
+                strawPlayers.getPlayer().teleport(StrawBattle.STRAW_BATTLE.getSpawnLocation());
             }
             if (!StrawBattle.STRAW_BATTLE.getEndingTask().isStarted())
                 StrawBattle.STRAW_BATTLE.getEndingTask().runTaskTimer(StrawBattle.STRAW_BATTLE, 0, 20);

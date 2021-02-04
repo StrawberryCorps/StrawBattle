@@ -1,5 +1,5 @@
 name: StrawBattle
-version: 0.0.1
+version: 0.0.2
 description: Mini-jeu de combat avec des boules (enflammée)
 author: Eclixal
 main: bzh.strawberry.strawbattle.StrawBattle

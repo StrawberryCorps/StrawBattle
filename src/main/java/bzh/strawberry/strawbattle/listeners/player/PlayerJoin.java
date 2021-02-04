@@ -4,19 +4,12 @@ import bzh.strawberry.strawbattle.StrawBattle;
 import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import bzh.strawberry.strawbattle.utils.PlayerUtil;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +31,8 @@ public class PlayerJoin implements Listener {
         event.setJoinMessage(null);
         StrawBattle.STRAW_BATTLE.getStrawPlayers().add(new StrawPlayer(event.getPlayer()));
         if (!StrawBattle.STRAW_BATTLE.running && StrawBattle.STRAW_BATTLE.getStrawPlayers().size() >= StrawBattle.STRAW_BATTLE.getMinPlayers()) {
-            if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted()) StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimerAsynchronously(StrawBattle.STRAW_BATTLE, 0L, 20L);
+            if (!StrawBattle.STRAW_BATTLE.getLaunchingTask().isStarted())
+                StrawBattle.STRAW_BATTLE.getLaunchingTask().runTaskTimerAsynchronously(StrawBattle.STRAW_BATTLE, 0L, 20L);
         }
 
         player.getInventory().clear();
@@ -70,7 +64,7 @@ public class PlayerJoin implements Listener {
             player.setGameMode(GameMode.SURVIVAL);
         } else {
             player.setGameMode(GameMode.SPECTATOR);
-            for(StrawPlayer strawPlayer : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
+            for (StrawPlayer strawPlayer : StrawBattle.STRAW_BATTLE.getStrawPlayers()) {
                 strawPlayer.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player);
                 if (strawPlayer.getPlayer().getGameMode() == GameMode.SPECTATOR)
                     player.hidePlayer(StrawBattle.STRAW_BATTLE, strawPlayer.getPlayer());

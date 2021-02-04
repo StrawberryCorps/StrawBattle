@@ -1,12 +1,10 @@
 package bzh.strawberry.strawbattle.listeners.player;
 
 import bzh.strawberry.strawbattle.StrawBattle;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 
 /*
@@ -24,7 +22,9 @@ public class PlayerGameModeChange implements Listener {
     @EventHandler
     public void onPlayerGameModeChange(PlayerGameModeChangeEvent event) {
         Player player = event.getPlayer();
-        if (event.getNewGameMode() == GameMode.SPECTATOR) StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player));
-        else StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player));
+        if (event.getNewGameMode() == GameMode.SPECTATOR)
+            StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().hidePlayer(StrawBattle.STRAW_BATTLE, player));
+        else
+            StrawBattle.STRAW_BATTLE.getStrawPlayers().forEach(strawPlayer -> strawPlayer.getPlayer().showPlayer(StrawBattle.STRAW_BATTLE, player));
     }
 }

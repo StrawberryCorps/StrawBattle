@@ -5,11 +5,7 @@ import bzh.strawberry.strawbattle.managers.data.StrawPlayer;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /*
  * This file AsyncPlayerChat is part of a project StrawBattle.StrawBattle.

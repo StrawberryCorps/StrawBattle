@@ -8,7 +8,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,9 @@ import static bzh.strawberry.strawbattle.utils.Cuboid.load;
  */
 public class StrawMap {
 
-    private String name;
+    private final String name;
 
-    private List<Location> locations;
+    private final List<Location> locations;
     private Cuboid cuboid;
 
     public StrawMap(String name) {
@@ -34,13 +33,21 @@ public class StrawMap {
         this.locations = new ArrayList<>();
     }
 
-    public World getWorld() { return Bukkit.getWorld(name); }
+    public World getWorld() {
+        return Bukkit.getWorld(name);
+    }
 
-    public String getName() { return this.name; }
+    public String getName() {
+        return this.name;
+    }
 
-    public Cuboid getCuboid() { return this.cuboid; }
+    public Cuboid getCuboid() {
+        return this.cuboid;
+    }
 
-    public void setCuboid(Cuboid cuboid) { this.cuboid = cuboid; }
+    public void setCuboid(Cuboid cuboid) {
+        this.cuboid = cuboid;
+    }
 
     public List<Location> getLocations() {
         return locations;
