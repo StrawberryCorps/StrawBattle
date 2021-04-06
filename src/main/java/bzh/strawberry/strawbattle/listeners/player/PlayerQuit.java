@@ -24,7 +24,6 @@ public class PlayerQuit implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         event.setQuitMessage(null);
-        StrawBattle.STRAW_BATTLE.getStrawPlayers().remove(StrawBattle.STRAW_BATTLE.getStrawPlayer(event.getPlayer().getUniqueId()));
         if (!StrawBattle.STRAW_BATTLE.running && !StrawBattle.STRAW_BATTLE.finish) {
             event.setQuitMessage(StrawBattle.STRAW_BATTLE.getPrefix() + "§b" + player.getDisplayName() + " §3a quitté la partie §9(" + StrawBattle.STRAW_BATTLE.getStrawPlayers().size() + "/" + StrawBattle.STRAW_BATTLE.getServer().getMaxPlayers() + ")");
             if (StrawBattle.STRAW_BATTLE.getStrawPlayers().size() - 1 <= StrawBattle.STRAW_BATTLE.getMinPlayers()) {
