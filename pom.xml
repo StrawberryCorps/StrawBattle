@@ -6,7 +6,7 @@
 
     <groupId>bzh.strawberry</groupId>
     <artifactId>StrawBattle</artifactId>
-    <version>0.0.2</version>
+    <version>1.0.1</version>
 
     <developers>
         <developer>
@@ -35,21 +35,21 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.18-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.18-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/craftbukkit-1.16.5.jar</systemPath>
+            <systemPath>${project.basedir}/lib/craftbukkit-1.18.jar</systemPath>
         </dependency>
     </dependencies>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
     </properties>
 
     <build>
@@ -72,27 +72,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <!-- ONLY FOR LOCAL TEST-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <configuration>
-                            <target>
-                                <copy file="target/${project.artifactId}-${project.version}.jar" tofile="A:/alexj/Bureau/StrawBerryCorps/srv_battlestraw/plugins/${project.artifactId}-${project.version}.jar"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-    
 </project>
