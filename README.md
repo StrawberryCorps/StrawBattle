@@ -13,6 +13,7 @@
 [issues-url]: https://github.com/StrawberryCorps/StrawBattle/issues
 [license-shield]: https://img.shields.io/github/license/StrawberryCorps/StrawBattle?style=for-the-badge
 [license-url]: https://github.com/StrawberryCorps/StrawBattle/blob/main/LICENSE
+[![tagged-release](https://github.com/StrawberryCorps/StrawBattle/actions/workflows/tagged-release.yaml/badge.svg?branch=main&event=release)](https://github.com/StrawberryCorps/StrawBattle/actions/workflows/tagged-release.yaml)
 
 --- 
 
